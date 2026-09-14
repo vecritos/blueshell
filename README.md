@@ -17,8 +17,8 @@ the registry, WSL, or any persistent Blueshellctl state.
 
 ```powershell
 git clone <repository-url> blueshell
-Set-Location .\blueshell
-pwsh -NoProfile -File .\tests\protocol-state.tests.ps1
+cd blueshell
+.\tests\protocol-state.tests.ps1
 ```
 
 On Windows PowerShell 5.1, use this equivalent command:
@@ -126,16 +126,16 @@ operations and can change firewall, adapter, registry, WSL, and local-user
 configuration.
 
 ```powershell
-& .\main\blueshellctl.ps1 help
-& .\main\blueshellctl.ps1 protocol-status
-& .\main\blueshellctl.ps1 protocol-transition Start
+.\main\blueshellctl.ps1 help
+.\main\blueshellctl.ps1 protocol-status
+.\main\blueshellctl.ps1 protocol-transition Start
 ```
 
 The protocol transition command accepts one event at a time:
 
 ```powershell
-& .\main\blueshellctl.ps1 protocol-transition PolicyApplied
-& .\main\blueshellctl.ps1 protocol-transition VerificationPassed
+.\main\blueshellctl.ps1 protocol-transition PolicyApplied
+.\main\blueshellctl.ps1 protocol-transition VerificationPassed
 ```
 
 Do not run scripts from `raw/` against a production machine without reviewing
@@ -148,7 +148,7 @@ engine and persistence contract, not live firewall, adapter, registry, WSL, or
 logging behavior:
 
 ```powershell
-pwsh -NoProfile -File .\tests\protocol-state.tests.ps1
+.\tests\protocol-state.tests.ps1
 ```
 
 It verifies initial state creation, valid transitions, invalid-transition
