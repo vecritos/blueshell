@@ -43,6 +43,30 @@ the checkout should not be pushed as a verified change.
 The protocol persists its current state in:
 
 `C:\Program Files\Blueshellctl\protocol-state.json`
+    
+Processing is based on a finite state machine for locking down networking during inspection, paranoia, or analysis.
+
+```txt
+    Finite state machine:"
+    "
+       +----------------+  Start  +-----------+  PolicyApplied  +-----------+"
+       | Uninitialized  | ------> | Assessing | --------------> | Enforcing  |"
+       +----------------+         +-----------+                 +-----------+"
+              ^                         |                              |"
+              | RecoverySucceeded       | EmergencyStop                | VerificationPassed"
+              |                         v                              v"
+       +--------------------+    +----------+                 +-----------+"
+       | RecoveryRequired   |    | Lockdown |                 | Protected |"
+       +--------------------+    +----------+                 +-----------+"
+              ^                         ^                         |       |"
+              | RecoveryStarted         | EmergencyStop           |       | EmergencyStop"
+              |                         |                         |       v"
+       +----------+  HealthCheckFailed  +-------------------------+     +----------+"
+       | Degraded | <---------------- Protected                         | Lockdown |"
+       +----------+                                                     +----------+"
+              |"
+              +-- EmergencyStop -> Lockdown"
+```
 
 The initial lifecycle is:
 
