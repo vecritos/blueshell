@@ -1,0 +1,1 @@
+Get-NetAdapter | Where-Object {$_.Name -like "*Bluetooth*"} | Disable-NetAdapter -Confirm:$false
